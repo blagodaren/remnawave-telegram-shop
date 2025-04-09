@@ -113,7 +113,7 @@ The bot includes a notification system that runs daily at 16:00 UTC to check for
 
    ```bash
    docker compose up -d
-
+   ```
 
 ## Update Instructions
 
