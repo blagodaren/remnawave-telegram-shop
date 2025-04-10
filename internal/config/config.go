@@ -30,6 +30,7 @@ type config struct {
 	channelURL             string
 	serverStatusURL        string
 	supportURL             string
+	tosURL		       string
 	isYookasaEnabled       bool
 	isCryptoEnabled        bool
 	isTelegramStarsEnabled bool
@@ -61,6 +62,10 @@ func ServerStatusURL() string {
 
 func SupportURL() string {
 	return conf.supportURL
+}
+
+func TosURL() string {
+	return conf.tosURL
 }
 
 func YookasaEmail() string {
@@ -272,6 +277,7 @@ func InitConfig() {
 
 	conf.serverStatusURL = os.Getenv("SERVER_STATUS_URL")
 	conf.supportURL = os.Getenv("SUPPORT_URL")
+	conf.tosURL = os.Getenv("TOS_URL")
 	conf.feedbackURL = os.Getenv("FEEDBACK_URL")
 	conf.channelURL = os.Getenv("CHANNEL_URL")
 

@@ -131,6 +131,12 @@ func (h Handler) StartCommandHandler(ctx context.Context, b *bot.Bot, update *mo
 		})
 	}
 
+	if config.TosURL() != "" {
+                inlineKeyboard = append(inlineKeyboard, []models.InlineKeyboardButton{
+                        {Text: h.translation.GetText(langCode, "tos_button"), URL: config.TosURL()},
+                })
+        }
+
 	m, err := b.SendMessage(ctx, &bot.SendMessageParams{
 		ChatID: update.Message.Chat.ID,
 		Text:   "🧹",
