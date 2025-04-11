@@ -1,11 +1,9 @@
 services:
   bot:
 #    build: .
-    image: ghcr.io/jolymmiles/remnawave-telegram-shop-bot:latest
+    image: ghcr.io/blagodaren/remnawave-telegram-shop-bot:latest
     env_file:
       - .env
-    networks:
-      - remnawave-network
     depends_on:
       db:
         condition: service_healthy
