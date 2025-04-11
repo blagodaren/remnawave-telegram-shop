@@ -162,7 +162,7 @@ func (h Handler) StartCommandHandler(ctx context.Context, b *bot.Bot, update *mo
 		ChatID:    update.Message.Chat.ID,
 		ParseMode: models.ParseModeMarkdown,
 		LinkPreviewOptions: &models.LinkPreviewOptions{
-			IsDisabled: true,
+			IsDisabled: bot.Bool(true),
 		},
 		ReplyMarkup: models.InlineKeyboardMarkup{
 			InlineKeyboard: inlineKeyboard,
