@@ -7,8 +7,8 @@ services:
     depends_on:
       db:
         condition: service_healthy
-#    volumes:
-#      - ./translations:/translations
+    volumes:
+      - ./translations:/translations
 
   db:
     image: postgres:17
@@ -31,9 +31,17 @@ services:
       interval: 3s
       timeout: 10s
       retries: 3
+    networks:
+      default:
+        aliases:
+          - db
 
 volumes:
   remnawave-telegram-shop-db-data:
     driver: local
     external: false
     name: remnawave-telegram-shop-db-data
+networks:
+  default:
+    name: remnawave-network
+    external: true
