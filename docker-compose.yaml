@@ -5,8 +5,7 @@ services:
     env_file:
       - .env
     networks:
-#      - remnawave-network
-      - vpn-bot
+      - remnawave-network
     depends_on:
       db:
         condition: service_healthy
@@ -20,8 +19,6 @@ services:
     restart: always
     env_file:
       - .env
-    networks:
-      - vpn-bot
     environment:
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
