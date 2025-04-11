@@ -3,7 +3,7 @@
   "buy_button": "💰 Buy",
   "connect_button": "🔐 Connect Now",
   "back_button": "🔙 Back",
-  "pricing_info": "\n📅 *1 month*  %d⭐️\n📅 *3 months*  %d⭐️\n📅 *6 months*  %d⭐️\n📅 *12 months*  %d⭐️\n\n💰 Russian bank cards and cryptocurrency are accepted for payment\n\n⚠️ Payment from *Apple* devices via Telegram Stars may be limited\\. We recommend paying via *browser* or *another device* to access Russian bank card options\n\n⭐️ Telegram Stars \\- official Telegram payment gateway, supports Sberpay and Russian bank cards \\(\\~1\\.85\\)\n\n✅ Verified Stars provider with lower rates than Telegram \\- [Starsov](https://t.me/StarsovBot?start=r290951142) \\(\\~1\\.7\\)",
+  "pricing_info": "\n📅 *1 month*  %d₽\n📅 *3 months*  %d₽\n📅 *6 months*  %d₽\n\nRussian bank cards and cryptocurrency are accepted for payment",
   "month_1": "1 month",
   "month_3": "3 months",
   "month_6": "6 months",
@@ -19,6 +19,7 @@
   "server_status_button": "🟢 Server Status",
   "support_button": "🆘 Support",
   "channel_button": "📢 Channel",
+  "tos_button": "Terms Of Service",
   "subscription_expiring": "⚠️ <b>Subscription Alert</b> ⚠️\n\nYour subscription expires on %s\nTo continue using the service, please renew your subscription",
   "renew_subscription_button": "🔄 Renew Subscription",
   "invoice_description" : "Subscription",
@@ -27,5 +28,14 @@
   "trial_button": "🔥 Try for free",
   "trial_activated": "Trial period activated",
   "trial_text": "Your trial version is active",
-  "activate_trial_button": "Activate trial version"
+  "activate_trial_button": "Activate trial version",
+  "broadcast_send_prompt": "✉️ Please send the message (text/media) you want to broadcast.",
+  "broadcast_preview": "📤 Message preview. Do you want to send it to all users?",
+  "broadcast_sent": "✅ Message has been sent to all users.",
+  "broadcast_canceled": "❌ Broadcast canceled.",
+  "broadcast_no_message": "⛔️ No message to send.",
+  "broadcast_send_button": "✅ Send",
+  "broadcast_cancel_button": "❌ Cancel",
+  "broadcast_access_denied": "🚫 You do not have access to this command."
 }
+

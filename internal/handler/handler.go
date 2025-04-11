@@ -14,6 +14,7 @@ import (
 	"remnawave-tg-shop-bot/internal/translation"
 	"remnawave-tg-shop-bot/internal/utils"
 	"remnawave-tg-shop-bot/internal/yookasa"
+	"remnawave-tg-shop-bot/internal/broadcast"
 	"strconv"
 	"strings"
 	"time"
@@ -27,6 +28,7 @@ type Handler struct {
 	translation        *translation.Manager
 	paymentService     *payment.PaymentService
 	syncService        *sync.SyncService
+	broadcastService   *broadcast.BroadcastService
 }
 
 func NewHandler(
@@ -36,7 +38,9 @@ func NewHandler(
 	customerRepository *database.CustomerRepository,
 	purchaseRepository *database.PurchaseRepository,
 	cryptoPayClient *cryptopay.Client,
-	yookasaClient *yookasa.Client) *Handler {
+	yookasaClient *yookasa.Client,
+	broadcastService *broadcast.BroadcastService,
+) *Handler {
 	return &Handler{
 		syncService:        syncService,
 		paymentService:     paymentService,
@@ -45,6 +49,7 @@ func NewHandler(
 		cryptoPayClient:    cryptoPayClient,
 		yookasaClient:      yookasaClient,
 		translation:        translation,
+		broadcastService:   broadcastService,
 	}
 }
 
@@ -125,6 +130,12 @@ func (h Handler) StartCommandHandler(ctx context.Context, b *bot.Bot, update *mo
 			{Text: h.translation.GetText(langCode, "channel_button"), URL: config.ChannelURL()},
 		})
 	}
+
+	if config.TosURL() != "" {
+                inlineKeyboard = append(inlineKeyboard, []models.InlineKeyboardButton{
+                        {Text: h.translation.GetText(langCode, "tos_button"), URL: config.TosURL()},
+                })
+        }
 
 	m, err := b.SendMessage(ctx, &bot.SendMessageParams{
 		ChatID: update.Message.Chat.ID,
@@ -271,6 +282,12 @@ func (h Handler) StartCallbackHandler(ctx context.Context, b *bot.Bot, update *m
 		})
 	}
 
+        if config.TosURL() != "" {
+                inlineKeyboard = append(inlineKeyboard, []models.InlineKeyboardButton{
+                        {Text: h.translation.GetText(langCode, "tos_button"), URL: config.TosURL()},
+                })
+        }
+
 	_, err = b.EditMessageText(ctx, &bot.EditMessageTextParams{ChatID: callback.Message.Message.Chat.ID,
 		MessageID: callback.Message.Message.ID,
 		ParseMode: models.ParseModeMarkdown,
@@ -298,6 +315,7 @@ func (h Handler) BuyCallbackHandler(ctx context.Context, b *bot.Bot, update *mod
 					{Text: h.translation.GetText(langCode, "month_1"), CallbackData: fmt.Sprintf("%s?month=%d&amount=%d", CallbackSell, 1, config.Price1())},
 					{Text: h.translation.GetText(langCode, "month_3"), CallbackData: fmt.Sprintf("%s?month=%d&amount=%d", CallbackSell, 3, config.Price3())},
 					{Text: h.translation.GetText(langCode, "month_6"), CallbackData: fmt.Sprintf("%s?month=%d&amount=%d", CallbackSell, 6, config.Price6())},
+					{Text: h.translation.GetText(langCode, "month_12"), CallbackData: fmt.Sprintf("%s?month=%d&amount=%d", CallbackSell, 12, config.Price12())},
 				},
 				{
 					{Text: h.translation.GetText(langCode, "back_button"), CallbackData: CallbackStart},
@@ -307,7 +325,8 @@ func (h Handler) BuyCallbackHandler(ctx context.Context, b *bot.Bot, update *mod
 		Text: fmt.Sprintf(h.translation.GetText(langCode, "pricing_info"),
 			config.Price1(),
 			config.Price3(),
-			config.Price6()),
+			config.Price6(),
+			config.Price12()),
 	})
 	if err != nil {
 		slog.Error("Error sending buy message", err)
@@ -548,4 +567,16 @@ func parseCallbackData(data string) map[string]string {
 	}
 
 	return result
+}
+
+func (h Handler) BroadcastCommandHandler(ctx context.Context, b *bot.Bot, update *models.Update) {
+	h.broadcastService.HandleBroadcastCommand(ctx, b, update)
+}
+
+func (h Handler) BroadcastTextHandler(ctx context.Context, b *bot.Bot, update *models.Update) {
+	h.broadcastService.HandleTextMessage(ctx, b, update)
+}
+
+func (h Handler) BroadcastCallbackHandler(ctx context.Context, b *bot.Bot, update *models.Update) {
+	h.broadcastService.HandleCallback(ctx, b, update)
 }
