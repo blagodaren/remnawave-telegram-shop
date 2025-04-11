@@ -14,7 +14,7 @@
   "subscription_active": "🟢 Subscription status: Active\n⏳ Valid until: %s",
   "subscription_link": "\n\n🔗 Connection link:\n%s",
   "no_subscription": "❌ You don't have an active subscription\nPurchase a subscription to start using the service",
-  "subscription_activated": "✅ Your subscription has been successfully activated\\!\nNow you can connect to the KVN",
+  "subscription_activated": "✅ Your subscription has been successfully activated.\nNow you can connect to the KVN",
   "feedback_button": "⭐ Feedback",
   "server_status_button": "🟢 Server Status",
   "support_button": "🆘 Support",
