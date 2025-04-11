@@ -282,6 +282,12 @@ func (h Handler) StartCallbackHandler(ctx context.Context, b *bot.Bot, update *m
 		})
 	}
 
+        if config.TosURL() != "" {
+                inlineKeyboard = append(inlineKeyboard, []models.InlineKeyboardButton{
+                        {Text: h.translation.GetText(langCode, "tos_button"), URL: config.TosURL()},
+                })
+        }
+
 	_, err = b.EditMessageText(ctx, &bot.EditMessageTextParams{ChatID: callback.Message.Message.Chat.ID,
 		MessageID: callback.Message.Message.ID,
 		ParseMode: models.ParseModeMarkdown,
